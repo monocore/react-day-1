@@ -1,9 +1,6 @@
 {
   "title": "Waardeovername",
   "type": "object",
-  "required": [
-    "title"
-  ],
   "properties": {
     "naam": {
       "type": "string",
@@ -12,6 +9,22 @@
     "psnId": {
       "type": "integer",
       "title": "Pensioennummer"
+    },
+    "pensioenuitvoerder": {
+      "type": "string",
+      "title": "Pensioenuitvoerder",
+      "enum": [
+        "foo",
+        "bar"
+      ],
+      "enumNames": [
+        "Foo",
+        "Bar"
+      ]
+    },
+    "polisnummer": {
+      "type": "integer",
+      "title": "Uw polisnummer bij de pensioenuitvoerder"
     }
   }
 }
