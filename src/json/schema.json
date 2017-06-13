@@ -12,15 +12,7 @@
     },
     "pensioenuitvoerder": {
       "type": "string",
-      "title": "Pensioenuitvoerder",
-      "enum": [
-        "foo",
-        "bar"
-      ],
-      "enumNames": [
-        "Foo",
-        "Bar"
-      ]
+      "title": "Pensioenuitvoerder"
     },
     "polisnummer": {
       "type": "integer",

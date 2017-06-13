@@ -1,7 +1,9 @@
 import InlineTextWidget from "./InlineTextWidget";
+import SelectWidget from "./SelectWidget";
 
 const Widgets = {
-  inlineText: InlineTextWidget
+  inlineText: InlineTextWidget,
+  selectWidget: SelectWidget
 };
 
 export default Widgets;
