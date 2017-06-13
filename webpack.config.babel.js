@@ -1,5 +1,6 @@
 import path from 'path';
 import { HotModuleReplacementPlugin } from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
   devtool: 'cheap-module-eval-source-map',
@@ -12,14 +13,24 @@ export default {
     'react-hot-loader/patch',
     './src/index'
   ],
-  plugins: [
-    new HotModuleReplacementPlugin()
-  ],
+  output: {
+    filename: 'bundle.js',
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/dist/'
+  },
   module: {
     rules: [
       {
+        test: /\.less/,
         exclude: /node_modules/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'less-loader']
+        })
+      },
+      {
         test: /\.js$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'babel-loader',
@@ -36,9 +47,11 @@ export default {
       }
     ]
   },
-  output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/dist/'
-  }
+  plugins: [
+    new HotModuleReplacementPlugin(),
+    new ExtractTextPlugin({
+      filename: 'css/blaat.css',
+      allChunks: true
+    }),
+  ]
 };
