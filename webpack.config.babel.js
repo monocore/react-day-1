@@ -1,21 +1,38 @@
 import path from 'path';
+import { HotModuleReplacementPlugin } from 'webpack';
 
 export default {
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: 'demo/',
     inline: true,
-    watchContentBase: true
+    hot: true
   },
   entry: [
+    'react-hot-loader/patch',
     './src/index'
   ],
+  plugins: [
+    new HotModuleReplacementPlugin()
+  ],
   module: {
-    loaders: [
+    rules: [
       {
         exclude: /node_modules/,
-        loaders: ['babel-loader'],
-        test: /\.js$/
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              presets: [
+                ['es2015', { modules: false }],
+                'react',
+              ],
+              plugins: ['react-hot-loader/babel']
+            }
+          }
+        ]
       }
     ]
   },

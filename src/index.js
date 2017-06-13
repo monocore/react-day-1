@@ -1,23 +1,19 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+import App from './components/App';
 
-import Form from "react-jsonschema-form";
-
-const schema = {
-  title: "Todo",
-  type: "object",
-  required: ["title"],
-  properties: {
-    title: {type: "string", title: "Title", default: "A new task"},
-    done: {type: "boolean", title: "Done?", default: false}
-  }
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById('app')
+  )
 };
 
-const log = (type) => console.log.bind(console, type);
+render(App);
 
-render((
-  <Form schema={schema}
-        onChange={log("changed")}
-        onSubmit={log("submitted")}
-        onError={log("errors")} />
-), document.getElementById("app"));
+if (module.hot) {
+  module.hot.accept('./components/App', () => { render(App) })
+}
