@@ -1,33 +1,31 @@
 import path from 'path';
 import { HotModuleReplacementPlugin } from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-export default {
-  devtool: 'cheap-module-eval-source-map',
+const defaultEnv = {
+  dev: true,
+  production: false
+};
+
+export default (env = defaultEnv) => ({
   devServer: {
     contentBase: 'demo/',
     inline: true,
     hot: true
   },
   entry: [
-    'react-hot-loader/patch',
-    './src/index'
+    ...env.dev ? [
+      'react-hot-loader/patch',
+    ] : [],
+    path.join(__dirname, 'src/index.js')
   ],
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, 'dist'),
-    publicPath: '/dist/'
   },
   module: {
     rules: [
-      {
-        test: /\.less/,
-        exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'less-loader']
-        })
-      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -44,14 +42,28 @@ export default {
             }
           }
         ]
+      },
+      {
+        test: /\.(css|less)$/,
+        loader: env.dev ? 'style-loader!css-loader?sourceMap!less-loader?sourceMap' : ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader?sourceMap!less-loader?sourceMap'
+        })
       }
     ]
   },
   plugins: [
-    new HotModuleReplacementPlugin(),
-    new ExtractTextPlugin({
-      filename: 'css/blaat.css',
-      allChunks: true
-    }),
+    ...env.dev ? [
+      new HotModuleReplacementPlugin()
+    ] : [
+      new ExtractTextPlugin({
+        filename: 'bundle.min.css',
+        allChunks: true
+      })
+    ],
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html'
+    })
   ]
-};
+});
