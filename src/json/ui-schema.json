@@ -1,3 +1,5 @@
 {
-
+  "pensioenuitvoerder": {
+    "ui:widget": "selectWidget"
+  }
 }
