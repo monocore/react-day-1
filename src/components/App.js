@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Form from "react-jsonschema-form";
 
 const schema = {
-  title: "Todo",
+  title: "Waardeovername",
   type: "object",
   required: ["title"],
   properties: {
