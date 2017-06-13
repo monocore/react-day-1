@@ -1,33 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import Form from "react-jsonschema-form";
 import Widgets from "./Widgets";
-
-const schema = {
-  "title": "Waardeovername",
-  "type": "object",
-  "required": ["title"],
-  "properties": {
-    "naam": {
-      "type": "string",
-      "title": "Naam"
-    },
-    "psnId": {
-      "type": "integer",
-      "title": "Pensioennummer",
-    }
-  }
-};
-
-const uiSchema = {
-  "naam": {
-    "ui:widget": "inlineText"
-  }
-};
-
-const formData = {
-  "naam": "I.S. Boneva-Rensink",
-  "psnId": 6205911
-};
+import schema from "../json/schema.json";
+import uiSchema from "../json/ui-schema.json";
+import formData from "../json/form-data.json";
 
 const log = (type) => console.log.bind(console, type);
 

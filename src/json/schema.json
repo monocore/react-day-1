@@ -1,0 +1,17 @@
+{
+  "title": "Waardeovername",
+  "type": "object",
+  "required": [
+    "title"
+  ],
+  "properties": {
+    "naam": {
+      "type": "string",
+      "title": "Naam"
+    },
+    "psnId": {
+      "type": "integer",
+      "title": "Pensioennummer"
+    }
+  }
+}
